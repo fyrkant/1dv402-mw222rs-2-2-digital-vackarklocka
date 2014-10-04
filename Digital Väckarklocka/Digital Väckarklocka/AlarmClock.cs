@@ -67,14 +67,13 @@ namespace Digital_Väckarklocka
         }
 
         public AlarmClock()
+            : this(0,0)
         {
-            // Tom!
         }
 
         public AlarmClock(int hour, int minute)
+            :this(hour, minute, 0, 0)
         {
-            Hour = hour;
-            Minute = minute;
         }
 
         public AlarmClock(int hour, int minute, int alarmHour, int alarmMinute)
@@ -86,13 +85,38 @@ namespace Digital_Väckarklocka
         }
 
         public bool TickTock()
-        {
-            return true;
+        {         
+            _minute++;
+
+            if (_minute == 60)
+            {
+                _minute = 0;
+                ++_hour;
+                if (_hour == 24)
+                {
+                    _hour = 0;                    
+                }
+            }
+            
+            if (_hour == _alarmHour && _minute == _alarmHour)
+            {
+                _minute++;
+                return true;
+            }
+            return false; 
         }
 
         public string ToString()
         {
-            return "Hello!";
+            if (_minute < 10)
+            {
+                return String.Format("{0,4}:0{1} <{2}:{3}>", _hour, _minute, _alarmHour, _alarmMinute);
+            }
+            if (_alarmMinute < 10)
+            {
+                return String.Format("{0,4}:{1} <{2}:0{3}>", _hour, _minute, _alarmHour, _alarmMinute);
+            }
+            return String.Format("{0,4}:{1} <{2}:{3}>", _hour, _minute, _alarmHour, _alarmMinute);            
         }
     }
 }
