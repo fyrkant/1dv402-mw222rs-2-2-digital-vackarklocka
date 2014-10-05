@@ -85,22 +85,22 @@ namespace Digital_Väckarklocka
         }
 
         public bool TickTock()
-        {         
+        {
             _minute++;
 
             if (_minute == 60)
             {
                 _minute = 0;
                 ++_hour;
+
                 if (_hour == 24)
                 {
                     _hour = 0;                    
                 }
             }
             
-            if (_hour == _alarmHour && _minute == _alarmHour)
-            {
-                _minute++;
+            if ((_hour == _alarmHour) && (_minute == _alarmMinute))
+            {                
                 return true;
             }
             return false; 
@@ -108,6 +108,10 @@ namespace Digital_Väckarklocka
 
         public string ToString()
         {
+            if (_minute < 10 && _alarmMinute < 10)
+            {
+                return String.Format("{0,4}:0{1} <{2}:0{3}>", _hour, _minute, _alarmHour, _alarmMinute);
+            }
             if (_minute < 10)
             {
                 return String.Format("{0,4}:0{1} <{2}:{3}>", _hour, _minute, _alarmHour, _alarmMinute);
@@ -115,7 +119,7 @@ namespace Digital_Väckarklocka
             if (_alarmMinute < 10)
             {
                 return String.Format("{0,4}:{1} <{2}:0{3}>", _hour, _minute, _alarmHour, _alarmMinute);
-            }
+            }            
             return String.Format("{0,4}:{1} <{2}:{3}>", _hour, _minute, _alarmHour, _alarmMinute);            
         }
     }
