@@ -29,15 +29,72 @@ namespace Digital_Väckarklocka
             test3.Minute = 58;
             Run(test3, 13);
 
-            ViewTestHeader("Test 5. \nStäller befintligt AlarmClock-objekt till tiden 6:12 och alarmtiden till 6:15 och låt den gå 6 minuter.");
+            ViewTestHeader("Test 5. \nStäller befintligt AlarmClock-objekt till tiden 6:12 och alarmtiden till 6:15 \noch låt den gå 6 minuter.");
             test2.Hour = 6;
             test2.Minute = 12;
             test2.AlarmHour = 6;
             test2.AlarmMinute = 15;
             Run(test2, 6);
 
+            ViewTestHeader("Test 6. \nTestar egenskaperna så att undantag kastas då tid och alarmtid tilldelas \nfelaktiga värden.");
+            try
+            {
+                test3.Hour = -6;
+                test3.Minute = -12;
+                test3.AlarmHour = 56;
+                test3.AlarmMinute = 115;
+            }
+            catch (ArgumentException ex)
+            {
+                ViewErrorMessage(ex.Message);
+            }
 
+            try
+            {                
+                test3.Minute = -12;
+            }
+            catch (ArgumentException ex)
+            {
+                ViewErrorMessage(ex.Message);
+            }
 
+            try
+            {
+                test3.AlarmHour = 56;
+            }
+            catch (ArgumentException ex)
+            {
+                ViewErrorMessage(ex.Message);
+            }
+
+            try
+            {
+                test3.AlarmMinute = 115;
+            }
+            catch (ArgumentException ex)
+            {
+                ViewErrorMessage(ex.Message);
+            }
+                        
+
+            ViewTestHeader("Test 7. \nTestar konstruktorerna så att undantag kastas då tid och alarmtid tilldelas \nfelaktiga värden. ");
+            try 
+	        {
+                test3 = new AlarmClock(25, 15);
+	        }
+	        catch (ArgumentException ex)
+	        {
+                ViewErrorMessage(ex.Message);
+	        }
+
+            try
+            {
+                test3 = new AlarmClock(0, 0, 67, 03);
+            }
+            catch (ArgumentException ex)
+            {
+                ViewErrorMessage(ex.Message);
+            }
 
 
         }
@@ -46,8 +103,20 @@ namespace Digital_Väckarklocka
         {
             for (int i = 0; i < minutes; i++)
             {
-                ac.TickTock();
-                Console.WriteLine(ac.ToString());
+                if (ac.TickTock() == true)
+                {
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.Write("    BEEP!");
+                    Console.Write(ac.ToString());
+                    Console.WriteLine("  BEEP! VAKNA!   ");
+                    Console.ResetColor();
+
+                }
+                else 
+                {
+                    Console.Write("         ");
+                    Console.WriteLine(ac.ToString());
+                }                
             }
         }
 

@@ -21,7 +21,7 @@ namespace Digital_Väckarklocka
             {
                 if (value < 0 || value > 23)
                 {
-                    throw new ArgumentException();                    
+                    throw new ArgumentException("Alarmtimmen är inte i intervallet 0-23.");                    
                 }
                 _alarmHour = value;
             }
@@ -34,7 +34,7 @@ namespace Digital_Väckarklocka
             {
                 if (value < 0 || value > 59)
                 {
-                    throw new ArgumentException();                    
+                    throw new ArgumentException("Alarmminuten är inte i intervallet 0-59.");                    
                 }
                 _alarmMinute = value;
             }
@@ -47,7 +47,7 @@ namespace Digital_Väckarklocka
             {
                 if (value < 0 || value > 23)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Timmen är inte i intervallet 0-23.");
                 }
                 _hour = value;
             }
@@ -60,7 +60,7 @@ namespace Digital_Väckarklocka
             {
                 if (value < 0 || value > 59)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Minuten är är inte i intervallet 0-59.");
                 }
                 _minute = value;
             }
@@ -98,12 +98,7 @@ namespace Digital_Väckarklocka
                     _hour = 0;                    
                 }
             }
-            
-            if ((_hour == _alarmHour) && (_minute == _alarmMinute))
-            {                
-                return true;
-            }
-            return false; 
+            return (_hour == _alarmHour) && (_minute == _alarmMinute); 
         }
 
         public string ToString()
