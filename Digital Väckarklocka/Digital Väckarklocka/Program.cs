@@ -40,11 +40,8 @@ namespace Digital_Väckarklocka
             try
             {
                 test3.Hour = -6;
-                test3.Minute = -12;
-                test3.AlarmHour = 56;
-                test3.AlarmMinute = 115;
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 ViewErrorMessage(ex.Message);
             }
@@ -53,7 +50,7 @@ namespace Digital_Väckarklocka
             {                
                 test3.Minute = -12;
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 ViewErrorMessage(ex.Message);
             }
@@ -62,7 +59,7 @@ namespace Digital_Väckarklocka
             {
                 test3.AlarmHour = 56;
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 ViewErrorMessage(ex.Message);
             }
@@ -71,7 +68,7 @@ namespace Digital_Väckarklocka
             {
                 test3.AlarmMinute = 115;
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 ViewErrorMessage(ex.Message);
             }
@@ -82,7 +79,7 @@ namespace Digital_Väckarklocka
 	        {
                 test3 = new AlarmClock(25, 15);
 	        }
-	        catch (ArgumentException ex)
+	        catch (Exception ex)
 	        {
                 ViewErrorMessage(ex.Message);
 	        }
@@ -91,7 +88,7 @@ namespace Digital_Väckarklocka
             {
                 test3 = new AlarmClock(0, 0, 67, 03);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 ViewErrorMessage(ex.Message);
             }
@@ -101,20 +98,29 @@ namespace Digital_Väckarklocka
 
         private static void Run(AlarmClock ac, int minutes)
         {
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("                               ");
+            Console.WriteLine("                               ");
+            Console.WriteLine("      Mattias   \x266B              ");
+            Console.WriteLine("        \x266B   Alarmklocka        ");
+            Console.WriteLine("                               ");
+            Console.WriteLine("                               ");
+            Console.ResetColor();
+            Console.WriteLine();
             for (int i = 0; i < minutes; i++)
             {
                 if (ac.TickTock() == true)
                 {
                     Console.BackgroundColor = ConsoleColor.Blue;
-                    Console.Write("    BEEP!");
+                    Console.Write("  \x266B \x266B \x266B");
                     Console.Write(ac.ToString());
-                    Console.WriteLine("  BEEP! VAKNA!   ");
+                    Console.WriteLine("  VAKNA!  ");
                     Console.ResetColor();
 
                 }
                 else 
                 {
-                    Console.Write("         ");
+                    Console.Write("       ");
                     Console.WriteLine(ac.ToString());
                 }                
             }
